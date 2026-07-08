@@ -1,0 +1,25 @@
+{
+  "generated": "2026-07-07",
+  "banner": "100% synthetic population; no real individuals; mobile-first methodology demonstration.",
+  "engine": "identity-resolver (github.com/Shubham-Safaya/identity-resolution-engine)",
+  "primary_key": "synthetic_phone_hash",
+  "population": {
+    "persons": 100000,
+    "households": 30751,
+    "records": 195069
+  },
+  "resolution": {
+    "clusters": 85557,
+    "deterministic_matches": 69532,
+    "probabilistic_matches": 92299,
+    "dedup_rate": 0.5614
+  },
+  "vs_ground_truth": {
+    "pairwise_precision": 0.536,
+    "pairwise_recall": 0.9668,
+    "true_pairs": 120252,
+    "false_merged_pairs": 100633,
+    "note": "Shared family phone numbers (a real Indian pattern) are the main false-merge source \u2014 the identifier-frequency-cap lesson, mobile edition."
+  },
+  "runtime_seconds": 25.8
+}
