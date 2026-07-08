@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bharat Consumer Pulse — audience intelligence on India's public data</title>
+<meta name="description" content="Audience planning and mobile-first identity mechanics demonstrated on India's public Census, NFHS, and macro data with fully synthetic identities. A methodology showcase — no real individuals, DPDP-aware by design.">
+<link rel="canonical" href="https://shubham-safaya.github.io/bharat-consumer-pulse/">
+<style>
+:root{--saffron:#e8871e;--green:#0f7b4f;--ink:#1a1a1a;--mut:#6b6b6b;--paper:#fbfaf6;--card:#fff;--bdr:#e2ddd2;--navy:#123a5e}
+*{box-sizing:border-box;margin:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(120deg,var(--saffron),var(--green));color:#fff;padding:18px 20px}
+header h1{font-size:1.4rem}header .sub{opacity:.92;font-size:.85rem;margin-top:2px}
+nav{display:flex;gap:6px;flex-wrap:wrap;padding:10px 20px;background:#fff;border-bottom:1px solid var(--bdr);font-size:.85rem}
+nav a{color:var(--navy);text-decoration:none;padding:4px 8px;border-radius:6px}
+nav a:hover{background:#f0ece2}
+main{max-width:900px;margin:0 auto;padding:22px 20px 60px}
+.banner{background:#eef6ff;border:1px solid #a9c8ec;border-radius:8px;padding:11px;font-size:13px;margin:14px 0}
+h2{font-size:1.15rem;margin:26px 0 10px}
+select,button{padding:8px;border-radius:8px;border:1px solid var(--bdr);font-size:14px;background:#fff}
+button{background:var(--navy);color:#fff;cursor:pointer;border:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:12px;text-align:center}
+.num{font-size:1.4rem;font-weight:700;color:var(--navy)}.lbl{font-size:.62rem;text-transform:uppercase;color:var(--mut);letter-spacing:.06em}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:8px 0}td,th{border:1px solid var(--bdr);padding:7px;text-align:left}th{background:#f4f1e9}
+.vintage{font-size:11px;color:#996c00}
+footer{border-top:1px solid var(--bdr);padding:20px;font-size:.78rem;color:var(--mut);text-align:center}
+a{color:var(--navy)}pre{background:#123a5e;color:#dbe7f3;padding:12px;border-radius:8px;font-size:12px;overflow:auto}
+</style>
+</head>
+<body>
+<header>
+  <h1>Bharat Consumer Pulse</h1>
+  <div class="sub">Audience intelligence + mobile-first identity mechanics — on India's public data, with synthetic people.</div>
+</header>
+<nav>
+  <a href="#personas">Persona builder</a>
+  <a href="#graph">Synthetic identity (mobile-first)</a>
+  <a href="#pulse">Macro pulse</a>
+  <a href="dpdp.html">DPDP consent architecture</a>
+  <a href="https://shubham-safaya.github.io/us-consumer-pulse/">US twin</a>
+</nav>
+<main>
+<p class="banner"><strong>Methodology demonstration.</strong> Every persona number is an aggregate public statistic (Census 2011, NCP projections, or NFHS 2019-21 — each labelled with its vintage). The identity demo uses a <strong>100% synthetic population</strong>; no real individuals, no PII. Built DPDP-Act-aware by design.</p>
+
+<h2 id="personas">Persona builder</h2>
+<p style="font-size:13px;color:var(--mut)">Select a state and a filter; get reach, index vs national, and an activation-spec shape. The Indian ecosystem is mobile-first, so the synthetic identity below keys on phone-hash, not email.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:12px 0">
+  <label style="font-size:12px">State / UT<br><select id="state"></select></label>
+  <label style="font-size:12px">Segment lens<br><select id="lens">
+    <option value="urban">Urban households</option>
+    <option value="rural">Rural households</option>
+    <option value="wealth">Top wealth quintile</option>
+    <option value="internet">Internet users</option>
+    <option value="literate">Literate population</option>
+  </select></label>
+  <button onclick="buildSegment()">Build</button>
+</div>
+<div class="cards" id="pcards"></div>
+<div id="pspec"></div>
+
+<h2 id="graph">Synthetic identity graph — mobile-first</h2>
+<p style="font-size:13px;color:var(--mut)">The same identity-resolution mechanics as the US demo, but keyed on <strong>synthetic phone-hashes</strong> — the primary identifier of the Indian ecosystem (UPI, banking, messaging all resolve to the number). Numbers precomputed; regenerate with the script in the repo.</p>
+<div class="cards" id="gcards"><div class="card">demo pending precompute — run <code>scripts/build_synthetic_graph.py</code></div></div>
+
+<h2 id="pulse">Macro pulse</h2>
+<p style="font-size:13px;color:var(--mut)">India's public series update monthly, not daily — so this refreshes monthly with history. CPI (MOSPI) and telecom subscribers (TRAI) are the recurring heartbeat.</p>
+<div class="cards" id="mcards"><div class="card">pulse pending first refresh — set <code>DATAGOV_API_KEY</code> + run monthly Action</div></div>
+
+</main>
+<footer>
+  Sources on-page per figure. Census 2011 · NCP projections 2011-2036 · NFHS-5 (2019-21) · MOSPI CPI · TRAI subscriber reports.
+  <br>Part of the <a href="https://shubham-safaya.github.io/">Shubham Safaya</a> portfolio · <a href="dpdp.html">DPDP explainer</a> · <a href="https://github.com/Shubham-Safaya/bharat-consumer-pulse">source</a>
+</footer>
+<script>
+let DATA;
+fetch("data/states.json").then(r=>r.json()).then(d=>{
+  DATA = d;
+  const sel = document.getElementById("state");
+  sel.innerHTML = d.states.sort((a,b)=>b.pop2025est-a.pop2025est)
+    .map(s=>`<option value="${s.code}">${s.name}</option>`).join("");
+  // preselect J&K (his roots) if present, else Maharashtra
+  sel.value = d.states.find(s=>s.code==="JK") ? "JK" : sel.value;
+  buildSegment();
+  // pulse placeholder from latest.json if present
+  fetch("data/latest.json").then(r=>r.ok?r.json():null).then(p=>{
+    if(!p) return;
+    const c=(n,l)=>`<div class="card"><div class="num">${n}</div><div class="lbl">${l}</div></div>`;
+    document.getElementById("mcards").innerHTML =
+      (p.cpi?c(p.cpi.value+"","CPI index ("+p.cpi.date+")"):"") +
+      (p.telecom?c((p.telecom.value/1e6).toFixed(0)+"M","telecom subs (TRAI)"):"") || document.getElementById("mcards").innerHTML;
+  });
+  fetch("data/synthetic/results.json").then(r=>r.ok?r.json():null).then(g=>{
+    if(!g) return;
+    const c=(n,l)=>`<div class="card"><div class="num">${n}</div><div class="lbl">${l}</div></div>`;
+    document.getElementById("gcards").innerHTML =
+      c(g.population.persons.toLocaleString(),"synthetic persons")+
+      c(g.population.records.toLocaleString(),"phone-keyed records")+
+      c((100*g.vs_ground_truth.pairwise_precision).toFixed(1)+"%","precision vs truth")+
+      c((100*g.vs_ground_truth.pairwise_recall).toFixed(1)+"%","recall vs truth");
+  });
+});
+function buildSegment(){
+  const s = DATA.states.find(x=>x.code===document.getElementById("state").value);
+  const lens = document.getElementById("lens").value;
+  const pop = s.pop2025est;
+  let frac, label, vintage;
+  if(lens==="urban"){frac=s.urban_pct/100;label="urban share";vintage="urban % — Census 2011 (structural)";}
+  else if(lens==="rural"){frac=1-s.urban_pct/100;label="rural share";vintage="rural % — Census 2011 (structural)";}
+  else if(lens==="wealth"){frac=s.wealth_top_q/100;label="top wealth quintile";vintage="NFHS-5 (2019-21)";}
+  else if(lens==="internet"){frac=s.internet_any/100;label="internet users";vintage="NFHS-5 (2019-21)";}
+  else {frac=s.literacy/100;label="literate";vintage="literacy — Census 2011 (structural)";}
+  const reach = Math.round(pop*frac);
+  // index vs national avg of this lens
+  const natFrac = DATA.states.reduce((a,x)=>{
+    const f = lens==="urban"?x.urban_pct/100:lens==="rural"?1-x.urban_pct/100:lens==="wealth"?x.wealth_top_q/100:lens==="internet"?x.internet_any/100:x.literacy/100;
+    return a + f*x.pop2025est;
+  },0) / DATA.states.reduce((a,x)=>a+x.pop2025est,0);
+  const idx = Math.round(100*frac/natFrac);
+  const c=(n,l)=>`<div class="card"><div class="num">${n}</div><div class="lbl">${l}</div></div>`;
+  document.getElementById("pcards").innerHTML =
+    c((reach/1e6).toFixed(1)+"M",label+" reach")+
+    c((100*frac).toFixed(1)+"%","of state pop")+
+    c(idx,"index vs national (100=avg)")+
+    c((pop/1e6).toFixed(0)+"M","state pop (2025 est)");
+  const spec = {taxonomy_id:`SYN-IN-${s.code}-${lens.toUpperCase()}`,
+    definition:{state:s.name,lens:label,geo:"IN"},estimated_reach:reach,
+    primary_key:"synthetic_phone_hash",source_vintage:vintage,synthetic:true};
+  document.getElementById("pspec").innerHTML =
+    `<p class="vintage">Source: ${vintage}</p><pre>${JSON.stringify(spec,null,2)}</pre>`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPDP consent architecture — Bharat Consumer Pulse</title>
+<meta name="description" content="How India's Digital Personal Data Protection Act 2023 reshapes identity and audience systems: consent managers as infrastructure, mobile-first keys, and why this differs from GDPR.">
+<link rel="canonical" href="https://shubham-safaya.github.io/bharat-consumer-pulse/dpdp.html">
+<style>
+body{font-family:-apple-system,'Segoe UI',sans-serif;max-width:720px;margin:0 auto;padding:24px;color:#1a1a1a;line-height:1.65;background:#fbfaf6}
+h1{font-size:1.6rem}h2{font-size:1.15rem;margin-top:28px;color:#123a5e}
+.back{font-size:.8rem;color:#6b6b6b}a{color:#123a5e}
+.disc{border:1px solid #a9c8ec;background:#eef6ff;border-radius:8px;padding:12px;font-size:.85rem;margin-top:24px}
+.stage{border-left:3px solid #e8871e;padding-left:14px;margin:14px 0}
+</style>
+</head>
+<body>
+<a class="back" href="./">&larr; Bharat Consumer Pulse</a>
+<h1>DPDP-aware by design</h1>
+<p>India's Digital Personal Data Protection Act, 2023 is not a copy of GDPR. It arrived after a decade of watching what compliance actually costs, and it makes some choices that matter for anyone building identity or audience systems for the Indian market. This page explains the ones that shaped how the synthetic demos here are built.</p>
+
+<h2>Consent as infrastructure, not paperwork</h2>
+<p>DPDP formalises the <strong>Consent Manager</strong> — a registered intermediary through which a person grants, reviews, and withdraws consent across data fiduciaries from a single interface. Consent is designed to be machine-readable, revocable, and portable, rather than a checkbox buried in each app.</p>
+<div class="stage">For an identity system this means consent state is an <strong>event that arrives from outside your walls</strong> and can be withdrawn at any time. Modelling consent as a boolean at signup is structurally wrong under this regime; it has to be an event stream keyed to the resolved person.</div>
+
+<h2>Mobile number is the spine</h2>
+<p>The Indian data ecosystem resolves around the <strong>phone number</strong>: UPI payments, Aadhaar-linked services, banking, and messaging all key on it. Where Western identity graphs treat email as primary and phone as corroboration, the Indian reality inverts that.</p>
+<div class="stage">That is why the synthetic identity demo here keys on a <strong>synthetic phone-hash</strong>. It is not a cosmetic choice — the whole match waterfall reorders when the strongest deterministic key is the number, not the inbox.</div>
+
+<h2>Purpose limitation with teeth</h2>
+<p>DPDP requires that personal data be processed only for the specified purpose the consent was given for, and deleted when that purpose is served. Combined with the Consent Manager's withdrawal mechanism, this pushes systems toward <strong>purpose-tagged storage</strong> and genuine deletion pipelines — the same deletion-as-a-graph-operation problem covered in the US identity work, now with a statutory clock.</p>
+
+<h2>Why a synthetic demo is the right way to show this</h2>
+<p>Demonstrating audience and identity mechanics on real Indian personal data would itself be a DPDP question. Building the demonstration on <strong>aggregate public statistics plus a fully synthetic population</strong> sidesteps that entirely: there is no personal data to have a lawful basis for, because there are no real people. The methodology is visible; the privacy exposure is zero. That is the point.</p>
+
+<div class="disc">Educational summary of the DPDP Act 2023 and Draft Rules as understood in mid-2026 — not legal advice, and the Rules are still settling. Verify against the official gazette and MeitY notifications before making compliance decisions.</div>
+<p style="margin-top:20px;font-size:.8rem;color:#6b6b6b"><a href="./">← back</a> · <a href="https://shubham-safaya.github.io/">portfolio</a></p>
+</body>
+</html>

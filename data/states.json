@@ -1,0 +1,31 @@
+{
+  "_sources": {
+    "population_2011": "Census of India 2011, Primary Census Abstract (censusindia.gov.in) — official. 2011 vintage.",
+    "population_2025_est": "National Commission on Population, Population Projections for India and States 2011-2036 (2020 report) — official projection, current-year interpolation.",
+    "urban_pct_2011": "Census of India 2011, rural-urban distribution. 2011 vintage.",
+    "literacy_2011": "Census of India 2011, literacy rate. 2011 vintage.",
+    "wealth_top_quintile_nfhs5": "NFHS-5 (2019-21) state factsheets, % households in the highest wealth quintile (national quintiles). MoHFW/IIPS.",
+    "internet_any_nfhs5": "NFHS-5 (2019-21), % who have ever used the internet (women+men blended approx). MoHFW/IIPS."
+  },
+  "_note": "Every figure carries its vintage. 2011 census values are a decade old — treated as structural, not current. Projections and NFHS (2019-21) labelled distinctly on-page.",
+  "states": [
+    {"code":"MH","name":"Maharashtra","pop2011":112374333,"pop2025est":128000000,"urban_pct":45.2,"literacy":82.3,"wealth_top_q":38.1,"internet_any":40.9},
+    {"code":"UP","name":"Uttar Pradesh","pop2011":199812341,"pop2025est":237000000,"urban_pct":22.3,"literacy":67.7,"wealth_top_q":12.7,"internet_any":22.5},
+    {"code":"BR","name":"Bihar","pop2011":104099452,"pop2025est":128000000,"urban_pct":11.3,"literacy":61.8,"wealth_top_q":5.6,"internet_any":20.6},
+    {"code":"WB","name":"West Bengal","pop2011":91276115,"pop2025est":100000000,"urban_pct":31.9,"literacy":76.3,"wealth_top_q":21.4,"internet_any":25.5},
+    {"code":"TN","name":"Tamil Nadu","pop2011":72147030,"pop2025est":78000000,"urban_pct":48.4,"literacy":80.1,"wealth_top_q":34.8,"internet_any":38.2},
+    {"code":"KA","name":"Karnataka","pop2011":61095297,"pop2025est":68000000,"urban_pct":38.6,"literacy":75.4,"wealth_top_q":33.2,"internet_any":40.1},
+    {"code":"GJ","name":"Gujarat","pop2011":60439692,"pop2025est":71000000,"urban_pct":42.6,"literacy":78.0,"wealth_top_q":31.5,"internet_any":36.4},
+    {"code":"RJ","name":"Rajasthan","pop2011":68548437,"pop2025est":81000000,"urban_pct":24.9,"literacy":66.1,"wealth_top_q":18.2,"internet_any":25.8},
+    {"code":"AP","name":"Andhra Pradesh","pop2011":49577103,"pop2025est":54000000,"urban_pct":29.6,"literacy":67.0,"wealth_top_q":26.9,"internet_any":25.0},
+    {"code":"TG","name":"Telangana","pop2011":35003674,"pop2025est":39000000,"urban_pct":38.9,"literacy":66.5,"wealth_top_q":33.9,"internet_any":34.6},
+    {"code":"KL","name":"Kerala","pop2011":33406061,"pop2025est":36000000,"urban_pct":47.7,"literacy":94.0,"wealth_top_q":40.2,"internet_any":51.3},
+    {"code":"MP","name":"Madhya Pradesh","pop2011":72626809,"pop2025est":87000000,"urban_pct":27.6,"literacy":69.3,"wealth_top_q":14.6,"internet_any":24.4},
+    {"code":"PB","name":"Punjab","pop2011":27743338,"pop2025est":31000000,"urban_pct":37.5,"literacy":75.8,"wealth_top_q":37.4,"internet_any":39.8},
+    {"code":"HR","name":"Haryana","pop2011":25351462,"pop2025est":30000000,"urban_pct":34.8,"literacy":75.6,"wealth_top_q":34.1,"internet_any":42.0},
+    {"code":"DL","name":"Delhi (NCT)","pop2011":16787941,"pop2025est":21000000,"urban_pct":97.5,"literacy":86.2,"wealth_top_q":54.6,"internet_any":55.3},
+    {"code":"JK","name":"Jammu & Kashmir","pop2011":12541302,"pop2025est":14000000,"urban_pct":27.2,"literacy":67.2,"wealth_top_q":25.8,"internet_any":33.0},
+    {"code":"AS","name":"Assam","pop2011":31205576,"pop2025est":36000000,"urban_pct":14.1,"literacy":72.2,"wealth_top_q":13.9,"internet_any":26.5},
+    {"code":"OD","name":"Odisha","pop2011":41974218,"pop2025est":46000000,"urban_pct":16.7,"literacy":72.9,"wealth_top_q":12.1,"internet_any":22.0}
+  ]
+}
